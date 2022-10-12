@@ -1,10 +1,16 @@
 const express=require('express');
+const bodyparser=require('body-parser');
 const routes=require('./routes/main');
 const hbs=require('hbs');
 const mongoose=require('mongoose');
 const navbar=require('./models/schema');
 const slider=require('./models/slider');
+const services=require('./models/services');
 const app=express();
+// app.use(express.urlencoded());
+app.use(bodyparser.urlencoded({
+    extended:true
+}));
 const port=process.env.PORT|8000;
 
 // db connection 
@@ -70,6 +76,35 @@ const nav=new navbar({
 //         imageUrl:'/images/nature3.jpg'
 //     }
 // ])
+
+// service data 
+// services.create([{
+//     icon:"fab fa-accusoft",
+//     title:'Service 1',
+//     description:"Some quick example text to build on the card title and make up the bulk of the card's content.",
+//     linkText1:"Service 1 link",
+//     link1:"/",
+//     linkText2:"Support link",
+//     link2:"/"
+//     },
+//     {
+//         icon:"fab fa-affiliatetheme",
+//         title:'Service 2',
+//         description:"Some quick example text to build on the card title and make up the bulk of the card's content.",
+//         linkText1:"Service 2 link",
+//         link1:"/",
+//         linkText2:"Support link",
+//         link2:"/"
+//     },
+//     {
+//         icon:"fab fa-affiliatetheme",
+//         title:'Service 2',
+//         description:"Some quick example text to build on the card title and make up the bulk of the card's content.",
+//         linkText1:"Service 2 link",
+//         link1:"/",
+//         linkText2:"Support link",
+//         link2:"/"
+//     }])
 
 app.use('',routes);
 app.use(express.static('public'));
